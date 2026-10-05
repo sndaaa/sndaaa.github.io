@@ -6,7 +6,7 @@ The English paper translation is pending and will be added later.
 
 ## Files
 
-- Paper: English translation pending
+- [English paper](./paper_01_fnt_core_en.docx)
 - [fnt_butterfly.v](./01_fnt16__fnt_butterfly.v)
 - [fnt16_pipeline.v](./01_fnt16__fnt16_pipeline.v)
 - [run_small_project1.py](./01_fnt16__run_small_project1.py)
@@ -16,4 +16,5 @@ The English paper translation is pending and will be added later.
 - [small1.out](./01_fnt16__small1.out)
 - [tb_fnt_butterfly.v](./01_fnt16__tb_fnt_butterfly.v)
 - [tb_fnt16_pipeline.v](./01_fnt16__tb_fnt16_pipeline.v)
+
 

@@ -6,7 +6,7 @@ The English paper translation is pending and will be added later.
 
 ## Files
 
-- Paper: English translation pending
+- [English paper](./paper_04_fnt_accelerator_en.docx)
 - [chain_results.csv](./04_fnt-accelerator__chain_results.csv)
 - [chain_vectors.mem](./04_fnt-accelerator__chain_vectors.mem)
 - [comp_lut.mem](./04_fnt-accelerator__comp_lut.mem)
@@ -24,4 +24,5 @@ The English paper translation is pending and will be added later.
 - [tb_fnt_chain_bypass.v](./04_fnt-accelerator__tb_fnt_chain_bypass.v)
 - [tb_fnt_chain.v](./04_fnt-accelerator__tb_fnt_chain.v)
 - [tb_stream_blocks.v](./04_fnt-accelerator__tb_stream_blocks.v)
+
 
