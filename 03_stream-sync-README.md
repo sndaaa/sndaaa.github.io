@@ -2,7 +2,7 @@
 
 A streaming symbol-synchronization and serial-to-parallel interface with data-stream modules, a loopback testbench, and simulation results.
 
-The English paper translation is pending and will be added later.
+The English paper is included below.
 
 ## Files
 
@@ -16,5 +16,6 @@ The English paper translation is pending and will be added later.
 - [stream_roundtrip.out](./03_stream-sync__stream_roundtrip.out)
 - [tb_stream_blocks_roundtrip.v](./03_stream-sync__tb_stream_blocks_roundtrip.v)
 - [tb_stream_blocks.v](./03_stream-sync__tb_stream_blocks.v)
+
 
 

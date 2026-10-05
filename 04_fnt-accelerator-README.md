@@ -2,7 +2,7 @@
 
 A configurable accelerator combining FNT, a dispersion-compensation LUT, and streaming interfaces, with resource estimates and an end-to-end verification report.
 
-The English paper translation is pending and will be added later.
+The English paper is included below.
 
 ## Files
 
@@ -24,5 +24,6 @@ The English paper translation is pending and will be added later.
 - [tb_fnt_chain_bypass.v](./04_fnt-accelerator__tb_fnt_chain_bypass.v)
 - [tb_fnt_chain.v](./04_fnt-accelerator__tb_fnt_chain.v)
 - [tb_stream_blocks.v](./04_fnt-accelerator__tb_stream_blocks.v)
+
 
 

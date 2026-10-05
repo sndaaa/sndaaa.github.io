@@ -2,7 +2,7 @@
 
 A configurable frequency-domain dispersion-compensation coefficient LUT with UART configuration registers, a sequential FNT core, and intermediate-result verification.
 
-The English paper translation is pending and will be added later.
+The English paper is included below.
 
 ## Files
 
@@ -21,5 +21,6 @@ The English paper translation is pending and will be added later.
 - [tb_mid_project.v](./02_dispersion-lut__tb_mid_project.v)
 - [uart_regfile.v](./02_dispersion-lut__uart_regfile.v)
 - [uart_rx_8n1.v](./02_dispersion-lut__uart_rx_8n1.v)
+
 
 
