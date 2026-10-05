@@ -1,0 +1,2 @@
+PASS stream_roundtrip samples=16 errors=0
+C:\Users\snda\Documents\Codex\2026-10-04\fpga-raw-rgb-isp-fpga-hdr\outputs\fpga_fnt_dispersion_accelerator\rtl\tb_stream_blocks_roundtrip.v:67: $finish called at 74000 (1ps)

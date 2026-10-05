@@ -1,0 +1,2 @@
+FAIL bypass errors=256
+..\rtl\tb_fnt_chain_bypass.v:6: $finish called at 100000 (1ps)

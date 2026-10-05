@@ -1,0 +1,2 @@
+PASS stream
+outputs\fpga_fnt_dispersion_accelerator\rtl\tb_stream_blocks.v:11: $finish called at 36000 (1ps)
