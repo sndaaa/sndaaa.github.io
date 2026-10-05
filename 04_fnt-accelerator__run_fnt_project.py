@@ -44,25 +44,25 @@ for bi,row in enumerate(rows):
 received_arr=np.asarray(received,dtype=np.int32); expected_arr=np.asarray(expected,dtype=np.int32)
 np.savetxt(RES/'received_symbols.csv',received_arr,fmt='%d',delimiter=','); np.savetxt(RES/'recovered_symbols.csv',expected_arr,fmt='%d',delimiter=',')
 before_err=float(np.mean(np.abs(received_arr-expected_arr))); after_err=float(np.mean(np.abs(received_arr*0)))
-(RES/'fnt_report.md').write_text(f'''# FNT 色散补偿加速器仿真报告
+(RES/'fnt_report.md').write_text(f'''# FNT Dispersion-Compensation Accelerator Simulation Report
 
-- 模长：16 点，模数 `Q={Q}`，原根 `ω={ROOTW}`，逆根 `ω⁻¹={ROOTI}`。
-- 变换：4 级 radix-2 DIT，输入按 4 位 bit-reverse 装载，输出自然顺序。
-- 色散参数：`D={D}`；补偿 LUT 为二次相位通道系数的模逆。
-- 测试块：{B} 个，每块 16 个符号，符号来自桌面 `aaa.png` 的灰度行。
-- RTL：FNT → 可配置频域补偿 LUT → IFNT；仿真结果与 Python 参考逐块逐符号一致。
-- 最大恢复误差：`{max_err}`（模域整数误差）。
-- 补偿前接收序列平均绝对差：`{before_err:.3f}`；理想模域补偿后误差为 `0`。
+- Transform length: 16 points; modulus Q={Q}; primitive root omega={ROOTW}; inverse root omega_inverse={ROOTI}.
+- Transform: four-stage radix-2 DIT with 4-bit bit-reversed input loading and natural-order output.
+- Dispersion parameter: D={D}; the compensation LUT contains modular inverses of the quadratic-phase channel coefficients.
+- Test data: {B} blocks of 16 symbols, taken from grayscale rows of aaa.png.
+- RTL chain: FNT -> configurable frequency-domain compensation LUT -> IFNT; RTL and Python reference results match symbol by symbol for every block.
+- Maximum recovery error: {max_err} in the modular integer domain.
+- Mean absolute difference before compensation: {before_err:.3f}; ideal modular compensation reduces the error to 0.
 
-## 结构
+## Architecture
 
-`fnt16_pipeline.v` 内含 4 个寄存器隔开的蝶形级，每级 8 个蝶形，共 32 个蝶形计算核；每个蝶形包含 1 个模乘、1 个模加和 1 个模减。`dispersion_apply.v` 含 16 个频点模乘核，系数由配置写口写入 BRAM/寄存器阵列。`fnt_chain_top.v` 将正变换、补偿和逆变换串起来，正变换和逆变换之间通过 `valid` 自动启动。
+fnt16_pipeline.v contains four register-separated butterfly stages with eight butterflies per stage, for 32 butterfly units in total. Each butterfly contains one modular multiplier, one modular adder, and one modular subtractor. dispersion_apply.v contains 16 frequency-bin multipliers whose coefficients are written through the configuration port into a BRAM/register array. fnt_chain_top.v connects the forward transform, compensation, and inverse transform; the valid signal automatically starts the inverse transform after the forward transform.
 
-## 输出
+## Outputs
 
-- `received_symbols.csv`：经过模拟色散后的输入块。
-- `recovered_symbols.csv`：补偿后的期望符号。
-- `sim/chain_results.csv`：RTL 输出。
+- received_symbols.csv: input blocks after simulated dispersion.
+- recovered_symbols.csv: expected symbols after compensation.
+- sim/chain_results.csv: RTL output.
 ''',encoding='utf-8')
 
 # Run the two standalone small-project smoke tests as well.
@@ -74,3 +74,4 @@ for name,top,srcs in [
     rr=subprocess.run([str(vvp),name+'.out'],cwd=SIM,capture_output=True,text=True)
     if rr.returncode or ('PASS '+name not in rr.stdout): raise SystemExit(name+' simulation failed:\n'+rr.stdout+'\n'+rr.stderr)
 print('fnt_simulation_ok',B,'blocks','max_error',max_err,'before_mae',round(before_err,3),'smoke_tests','butterfly,stream')
+

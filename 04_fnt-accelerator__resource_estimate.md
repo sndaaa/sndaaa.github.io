@@ -1,14 +1,15 @@
-# FNT 中项目资源估算
+# FNT Project Resource Estimate
 
-这是根据 RTL 结构得到的架构级估算，不是 Vivado/Quartus 的最终综合报告。最终 LUT、FF、BRAM 和 Fmax 必须使用目标 FPGA、约束文件和具体综合工具确认。
+This is an architecture-level estimate derived from the RTL structure, not a final Vivado or Quartus synthesis report. Final LUT, FF, BRAM, and Fmax values must be confirmed with the target FPGA, constraints, and synthesis tool.
 
-| 部分 | 主要硬件结构 | 数量/规模 |
+| Section | Main hardware structure | Quantity / scale |
 |---|---|---:|
-| 一个资源复用 FNT 核 | 模乘器、累加器、控制计数器 | 1 个模乘数据通路 |
-| FNT 存储 | 输入/中间/输出数组 | 2×256×14 bit 级别 |
-| 正变换 + 逆变换 | 两个资源复用 FNT 核 | 2 个模乘数据通路 |
-| 补偿 LUT | 256×14 bit 系数阵列 | 3584 bit，适合 1 个小 BRAM 或寄存器阵列 |
-| 串并/并串缓存 | 256×14 bit 块寄存器 | 各 3584 bit 级别 |
-| UART 配置 | 接收状态机、5 字节包解析 | 少量 FF/LUT |
+| One time-multiplexed FNT core | Modular multiplier, accumulator, control counter | One modular-multiply datapath |
+| FNT storage | Input, intermediate, and output arrays | Approximately 2×256×14 bits |
+| Forward + inverse transforms | Two time-multiplexed FNT cores | Two modular-multiply datapaths |
+| Compensation LUT | 256×14-bit coefficient array | 3584 bits, suitable for one small BRAM or register array |
+| Serial/parallel buffers | 256×14-bit block registers | Approximately 3584 bits each |
+| UART configuration | Receiver state machine and five-byte packet parser | A small number of FFs/LUTs |
 
-当前通用核使用时间复用，资源较省但 256 点吞吐较低。`fnt16_pipeline.v` 是另一种选择：16 点四级完全展开，32 个蝶形并行，吞吐高但乘法器和组合逻辑更多。两种结构的选择体现了“资源—吞吐—延迟”的工程权衡。
+The current generic core uses time multiplexing to save resources, at the cost of lower 256-point throughput. `fnt16_pipeline.v` provides another option: a fully unrolled 16-point, four-stage pipeline with 32 parallel butterflies. It offers higher throughput with more multipliers and combinational logic. The choice captures the engineering trade-off among resources, throughput, and latency.
+

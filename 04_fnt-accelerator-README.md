@@ -1,12 +1,12 @@
-# 可配置 FNT 色散补偿加速器设计与验证
+# Configurable FNT Dispersion-Compensation Accelerator
 
-将 FNT、色散补偿 LUT 与流式接口组合成可配置加速器，附资源估算与链路验证报告。
+A configurable accelerator combining FNT, a dispersion-compensation LUT, and streaming interfaces, with resource estimates and an end-to-end verification report.
 
-原始文件来自桌面文件夹：可配置 FNT 色散补偿加速器设计与验证
+The English paper translation is pending and will be added later.
 
-## 文件列表
+## Files
 
-- [___FNT____________.docx](./04_fnt-accelerator_____FNT____________.docx)
+- Paper: English translation pending
 - [chain_results.csv](./04_fnt-accelerator__chain_results.csv)
 - [chain_vectors.mem](./04_fnt-accelerator__chain_vectors.mem)
 - [comp_lut.mem](./04_fnt-accelerator__comp_lut.mem)
@@ -24,3 +24,4 @@
 - [tb_fnt_chain_bypass.v](./04_fnt-accelerator__tb_fnt_chain_bypass.v)
 - [tb_fnt_chain.v](./04_fnt-accelerator__tb_fnt_chain.v)
 - [tb_stream_blocks.v](./04_fnt-accelerator__tb_stream_blocks.v)
+

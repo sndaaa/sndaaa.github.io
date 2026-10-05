@@ -1,34 +1,34 @@
-# Peiying Yang (杨佩瑛)'s Homepage
+# Peiying Yang's Homepage
 
-这是 Peiying Yang 的个人主页与项目归档，使用 GitHub Pages 发布。
+This is Peiying Yang's personal homepage and project archive, published with GitHub Pages.
 
-## 个人项目
+## Personal projects
 
-### 基于有限数域快速数论变换的16点FNT硬件核设计与验证
+### 16-Point Finite-Field Number Theoretic Transform Hardware Core
 
-16点有限数域快速数论变换（FNT）硬件核，包含流水线蝶形运算、Verilog 测试平台与 Python 验证脚本。
+A 16-point finite-field number theoretic transform (FNT) hardware core with pipelined butterfly operations, a Verilog testbench, and a Python verification script.
 
-- 文件数量：10
-- 项目说明：[01_fnt16-README.md](./01_fnt16-README.md)
+- File count: 10
+- Project notes: [01_fnt16-README.md](./01_fnt16-README.md)
 
-### 可配置频域色散补偿系数 LUT 设计与验证
+### Configurable Frequency-Domain Dispersion-Compensation LUT
 
-可配置频域色散补偿系数 LUT，包含 UART 配置寄存器、顺序 FNT 核与中间结果验证。
+A configurable frequency-domain dispersion-compensation coefficient LUT with UART configuration registers, a sequential FNT core, and intermediate-result verification.
 
-- 文件数量：15
-- 项目说明：[02_dispersion-lut-README.md](./02_dispersion-lut-README.md)
+- File count: 15
+- Project notes: [02_dispersion-lut-README.md](./02_dispersion-lut-README.md)
 
-### 流式符号同步与串并转换接口设计与验证
+### Streaming Symbol Synchronization and Serial-to-Parallel Interface
 
-流式符号同步和串并转换接口，包含数据流模块、回环测试平台与仿真结果。
+A streaming symbol-synchronization and serial-to-parallel interface with data-stream modules, a loopback testbench, and simulation results.
 
-- 文件数量：10
-- 项目说明：[03_stream-sync-README.md](./03_stream-sync-README.md)
+- File count: 10
+- Project notes: [03_stream-sync-README.md](./03_stream-sync-README.md)
 
-### 可配置 FNT 色散补偿加速器设计与验证
+### Configurable FNT Dispersion-Compensation Accelerator
 
-将 FNT、色散补偿 LUT 与流式接口组合成可配置加速器，附资源估算与链路验证报告。
+A configurable accelerator combining FNT, a dispersion-compensation LUT, and streaming interfaces, with resource estimates and an end-to-end verification report.
 
-- 文件数量：18
-- 项目说明：[04_fnt-accelerator-README.md](./04_fnt-accelerator-README.md)
+- File count: 18
+- Project notes: [04_fnt-accelerator-README.md](./04_fnt-accelerator-README.md)
 

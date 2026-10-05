@@ -1,12 +1,12 @@
-# 基于有限数域快速数论变换的16点FNT硬件核设计与验证
+# 16-Point Finite-Field Number Theoretic Transform Hardware Core
 
-16点有限数域快速数论变换（FNT）硬件核，包含流水线蝶形运算、Verilog 测试平台与 Python 验证脚本。
+A 16-point finite-field number theoretic transform (FNT) hardware core with pipelined butterfly operations, a Verilog testbench, and a Python verification script.
 
-原始文件来自桌面文件夹：基于有限数域快速数论变换的16点FNT硬件核设计与验证
+The English paper translation is pending and will be added later.
 
-## 文件列表
+## Files
 
-- [_____________16_FNT________.docx](./01_fnt16_______________16_FNT________.docx)
+- Paper: English translation pending
 - [fnt_butterfly.v](./01_fnt16__fnt_butterfly.v)
 - [fnt16_pipeline.v](./01_fnt16__fnt16_pipeline.v)
 - [run_small_project1.py](./01_fnt16__run_small_project1.py)
@@ -16,3 +16,4 @@
 - [small1.out](./01_fnt16__small1.out)
 - [tb_fnt_butterfly.v](./01_fnt16__tb_fnt_butterfly.v)
 - [tb_fnt16_pipeline.v](./01_fnt16__tb_fnt16_pipeline.v)
+

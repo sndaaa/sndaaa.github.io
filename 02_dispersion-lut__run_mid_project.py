@@ -41,13 +41,15 @@ def ref_bench(N,reps=3):
     x=[int(v) for v in flat[:N]]; t0=time.perf_counter()
     for _ in range(reps): fnt(fnt(x,N),N,True)
     return (time.perf_counter()-t0)/reps
-lines=['# 可配置 FNT 色散补偿中项目报告','','- RTL 链路：串行输入 → 串并转换 → FNT → 可配置补偿 LUT → IFNT → 并串转换。','- UART 包格式：A5, address_hi, address_lo, data_low, data_high；FF/FE 选择点数，FF/FD 控制旁路。','- 验证点数：16、64、256；每种点数各一个色散块，另加一个 16 点旁路块。','- 结果：所有输出符号与 Python 参考值一致，最大误差为 0。','']
-lines.append('| N | 资源复用模型周期/块 | 100 MHz 理论符号率 | 单块理论延迟 |')
+lines=['# Configurable FNT Dispersion-Compensation Intermediate Project Report','','- RTL chain: serial input → serial-to-parallel conversion → FNT → configurable compensation LUT → IFNT → parallel-to-serial conversion.','- UART packet format: A5, address_hi, address_lo, data_low, data_high; FF/FE selects the transform length, and FF/FD controls bypass.','- Verified transform lengths: 16, 64, and 256; one dispersed block for each length plus one 16-point bypass block.','- Result: every output symbol matches the Python reference, with a maximum error of 0.','']
+lines.append('| N | Time-multiplexed cycles/block | Theoretical symbol rate at 100 MHz | Theoretical block latency |')
 lines.append('|---:|---:|---:|---:|')
 for N,cyc,rate,lat in metrics: lines.append(f'| {N} | {cyc} | {rate:.4f} Msym/s | {lat:.3f} μs |')
-lines += ['', '上述通用核使用一个模乘器按时间复用，适合学习和资源受限设计。已有 fnt16_pipeline.v 仍是完全展开的高吞吐 16 点版本。资源/频率最终必须用目标 FPGA 综合工具确认。', '', '## Python 参考时间（仅用于方法演示）']
-for N in modes: lines.append(f'- N={N}: {ref_bench(N):.6f} s/block（纯 Python 参考实现）')
+lines += ['', 'The generic core time-multiplexes one modular multiplier, making it suitable for learning and resource-constrained designs. fnt16_pipeline.v remains a fully unrolled, high-throughput 16-point option. Final resources and frequency must be confirmed with the target FPGA synthesis tool.', '', '## Python Reference Timing (Method Demonstration Only)']
+for N in modes: lines.append(f'- N={N}: {ref_bench(N):.6f} s/block (pure Python reference implementation)')
 (RES/'mid_project_report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 print('mid_project_ok','rows',len(rows),'max_error',0,'modes','16,64,256','bypass','pass')
+
+
 
 

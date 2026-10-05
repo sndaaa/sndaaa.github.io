@@ -29,82 +29,84 @@ c2=subprocess.run([str(iverilog),'-g2012','-s','tb_fnt_butterfly','-o',str(SIM/'
 if c2.returncode:raise SystemExit('butterfly compile failed:\n'+c2.stderr)
 r2=subprocess.run([str(vvp),'small1_butterfly.out'],cwd=SIM,capture_output=True,text=True)
 if r2.returncode or 'PASS butterfly' not in r2.stdout:raise SystemExit('butterfly test failed:\n'+r2.stdout+'\n'+r2.stderr)
-report=f'''# 第一个小项目：可配置定点 FNT 蝶形运算单元与 16 点 FNT 核
+report=f'''# Small Project 1: Configurable Fixed-Point FNT Butterfly and 16-Point FNT Core
 
-## 项目概述
+## Overview
 
-我从一个最基本的 FNT 蝶形开始，逐步搭建了一个 16 点 FNT/IFNT 核。我的目标不是一开始就做完整光通信系统，而是先把有限域加法、减法、乘法、旋转因子和蝶形连接关系验证清楚，再把这些小单元组织成 4 级 radix-2 DIT 结构。
+Starting from a basic FNT butterfly, I built a 16-point FNT/IFNT core. The goal was to verify finite-field addition, subtraction, multiplication, twiddle factors, and butterfly connectivity before assembling these units into a four-stage radix-2 DIT structure.
 
-## 我实现了什么
+## What I implemented
 
-- 一个模数为 Q=12289 的 FNT 蝶形运算单元；
-- 支持正变换和逆变换的 16 点 FNT 核；
-- 4 个蝶形级，每级 8 个蝶形，逻辑上共 32 个蝶形；
-- 级间寄存器和 valid 延迟；
-- bit-reverse 输入重排；
-- 逆变换中的 N⁻¹ 归一化；
-- Python 参考模型和 Icarus Verilog testbench；
-- 正变换和逆变换的逐点自动比对。
+- An FNT butterfly unit with modulus Q=12289;
+- A 16-point FNT core supporting forward and inverse transforms;
+- Four butterfly stages with eight butterflies per stage, 32 butterflies logically;
+- Inter-stage registers and valid delays;
+- Bit-reversed input reordering;
+- N-inverse normalization in the inverse transform;
+- A Python reference model and an Icarus Verilog testbench;
+- Point-by-point automatic comparison of forward and inverse transforms.
 
-## 我的实现过程
+## Implementation process
 
-第一步，我选了 Q=12289，因为它满足 12289-1 可以被 16 整除，能够构造 16 阶单位根。得到的正变换根是 4134，逆根是 10984，16 的模逆是 11521。
+First, I chose Q=12289 because 12289-1 is divisible by 16, so a 16th root of unity can be constructed. The forward root is 4134, the inverse root is 10984, and the modular inverse of 16 is 11521.
 
-第二步，我先实现蝶形：
+Second, I implemented the butterfly:
 
-t = b × w mod Q
+t = b x w mod Q
 y0 = a + t mod Q
 y1 = a - t mod Q
 
-第三步，我把 16 个输入按 bit-reverse 顺序装载到第 0 级，然后依次经过 4 个 radix-2 级。每一级的蝶形结果都保存到寄存器中，因此不同数据块可以在不同级同时存在。
+Third, I loaded the 16 inputs in bit-reversed order into stage 0 and passed them through four radix-2 stages. Every stage stores its butterfly results in registers, allowing different data blocks to occupy different stages at the same time.
 
-第四步，我把逆根用于逆变换，并在最后乘以 16 的模逆。这样正变换后的数据再经过逆变换，能够恢复原始 16 个符号。
+Fourth, I used the inverse root for the inverse transform and multiplied by the modular inverse of 16 at the end. Applying the inverse transform after the forward transform therefore recovers the original 16 symbols.
 
-## 验证方法
+## Verification
 
-我从 aaa.png 的灰度数据取出前 16 个值作为输入。Python 先计算参考 FNT 结果，RTL testbench 再计算同一组数据。仿真输出写入 small1_results.csv，脚本逐点比较：
+I used the first 16 grayscale values from aaa.png as input. Python computed the reference FNT results, and the RTL testbench computed the same data. The simulation output was written to small1_results.csv and compared point by point:
 
-- 正变换：16/16 个频域结果一致；
-- 逆变换：16/16 个时域结果恢复；
-- 最大误差：0；蝶形单元 smoke test：通过。
+- Forward transform: 16/16 frequency-domain values matched;
+- Inverse transform: all 16 time-domain values recovered;
+- Maximum error: 0; butterfly-unit smoke test: passed.
 
-## 结果和意义
+## Results and significance
 
-这个项目让我掌握了后续中项目需要的几个核心方法：如何选择有限域参数，如何写模运算，如何拆分蝶形级，如何在级间插入寄存器，以及如何用 Python 和 RTL 做自动比对。
+This project established the core methods needed by the later projects: choosing finite-field parameters, implementing modular arithmetic, partitioning butterfly stages, inserting inter-stage registers, and automatically comparing Python and RTL results.
 
-当前版本是 16 点、完全展开的教学版。后续可以继续扩展到 64/256 点，或者把蝶形调度改成资源复用结构。
+The current version is a fully unrolled 16-point educational design. It can be extended to 64 or 256 points, or the butterfly schedule can be changed to a resource-shared structure.
 
-## 文件清单
+## File list
 
-### 核心 RTL
+### Core RTL
 
-- rtl/fnt_butterfly.v：独立蝶形运算单元；
-- rtl/fnt16_pipeline.v：4 级 16 点 FNT/IFNT 流水线；
-- rtl/tb_fnt_butterfly.v：蝶形单元独立测试平台；
-- rtl/tb_fnt16_pipeline.v：16 点 FNT/IFNT 独立测试平台。
+- rtl/fnt_butterfly.v: standalone butterfly unit;
+- rtl/fnt16_pipeline.v: four-stage 16-point FNT/IFNT pipeline;
+- rtl/tb_fnt_butterfly.v: standalone butterfly testbench;
+- rtl/tb_fnt16_pipeline.v: standalone 16-point FNT/IFNT testbench.
 
-### Python 与仿真驱动
+### Python and simulation driver
 
-- scripts/run_small_project1.py：生成测试数据、编译 RTL、运行仿真、自动比较；
-- sim/small1_input.mem：16 个输入符号；
-- sim/small1.out：Icarus Verilog 16 点 FNT 仿真可执行文件；
-- sim/small1_butterfly.out：Icarus Verilog 蝶形单元 smoke test 可执行文件；
-- sim/small1_results.csv：正变换和逆变换的 RTL 输出。
+- scripts/run_small_project1.py: generate test data, compile RTL, run simulation, and compare automatically;
+- sim/small1_input.mem: 16 input symbols;
+- sim/small1.out: Icarus Verilog 16-point FNT simulation executable;
+- sim/small1_butterfly.out: Icarus Verilog butterfly smoke-test executable;
+- sim/small1_results.csv: RTL output for forward and inverse transforms.
 
-### 与后续中项目共享、但不属于本小项目核心的文件
+### Shared files from later projects
 
-- rtl/fnt_chain_top.v：FNT、补偿 LUT、IFNT 的集成顶层；
-- rtl/tb_fnt_chain.v：集成链路测试平台；
-- scripts/run_fnt_project.py：中项目早期的 16 点链路验证脚本；
-- rtl/fnt_seq_core.v：支持 16/64/256 点的资源复用 FNT 核；
-- rtl/fnt_configurable_top.v：带 UART、旁路和串行接口的中项目顶层。
+- rtl/fnt_chain_top.v: integrated FNT, compensation-LUT, and IFNT top level;
+- rtl/tb_fnt_chain.v: integrated-chain testbench;
+- scripts/run_fnt_project.py: early 16-point chain verification script;
+- rtl/fnt_seq_core.v: resource-shared FNT core supporting 16, 64, and 256 points;
+- rtl/fnt_configurable_top.v: configurable top level with UART, bypass, and serial interfaces.
 
-## 当前限制
+## Current limitations
 
-这个小项目只验证有限域 FNT，不等同于完整复数 FFT 或真实光纤信道模型。它的价值是先把硬件变换核、流水线和验证方法做正确，为后面的色散补偿和可配置系统打基础。
+This small project verifies finite-field FNT only; it is not a complete complex FFT or a physical fiber-channel model. Its purpose is to establish a correct hardware transform core, pipeline, and verification method for the later dispersion-compensation and configurable-system projects.
 '''
+
 (RES/'small_project_1_report.md').write_text(report,encoding='utf-8')
 print('small_project_1_ok','forward_points',N,'inverse_points',N,'max_error',0,'butterfly','pass')
+
 
 
 

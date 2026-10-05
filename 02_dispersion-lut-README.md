@@ -1,12 +1,12 @@
-# 可配置频域色散补偿系数 LUT 设计与验证
+# Configurable Frequency-Domain Dispersion-Compensation LUT
 
-可配置频域色散补偿系数 LUT，包含 UART 配置寄存器、顺序 FNT 核与中间结果验证。
+A configurable frequency-domain dispersion-compensation coefficient LUT with UART configuration registers, a sequential FNT core, and intermediate-result verification.
 
-原始文件来自桌面文件夹：可配置频域色散补偿系数LUT 设计与验证
+The English paper translation is pending and will be added later.
 
-## 文件列表
+## Files
 
-- [___________LUT_____.docx](./02_dispersion-lut_____________LUT_____.docx)
+- Paper: English translation pending
 - [dispersion_apply.v](./02_dispersion-lut__dispersion_apply.v)
 - [dispersion_lut256.v](./02_dispersion-lut__dispersion_lut256.v)
 - [fnt_configurable_top.v](./02_dispersion-lut__fnt_configurable_top.v)
@@ -21,3 +21,4 @@
 - [tb_mid_project.v](./02_dispersion-lut__tb_mid_project.v)
 - [uart_regfile.v](./02_dispersion-lut__uart_regfile.v)
 - [uart_rx_8n1.v](./02_dispersion-lut__uart_rx_8n1.v)
+
